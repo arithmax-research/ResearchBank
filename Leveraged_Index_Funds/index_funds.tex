@@ -1,56 +1,20 @@
-\documentclass[onecolumn,11pt]{IEEEtran}
-\IEEEoverridecommandlockouts
-\usepackage{cite}
-\usepackage{amsmath,amssymb,amsfonts}
-\usepackage{algorithmic}
-\usepackage{graphicx}
-\usepackage{textcomp}
-\usepackage{xcolor}
-\usepackage{geometry}
-\usepackage{listings}
-\usepackage{color}
-\usepackage{hyperref}
-\usepackage{algorithm}
-\usepackage{natbib}
-\usepackage{algpseudocode}
-\usepackage{booktabs}
-\usepackage{setspace}
+\documentclass[onecolumn,ieee]{arithmaxresearch}
 
-% Set geometry for better single column layout
-\geometry{
-    a4paper,
-    left=2.5cm,
-    right=2.5cm,
-    top=2.5cm,
-    bottom=2.5cm
-}
-
-% Set line spacing
-\setstretch{1.1}
-
-% Simple algorithm formatting
-\makeatletter
-\renewenvironment{algorithm}[1][h]
-  {\begin{figure}[#1]
-   \centering
-   \begin{minipage}{0.9\textwidth}
-   \hrule
-   \vspace{0.3em}}
-  {\vspace{0.3em}
-   \hrule
-   \end{minipage}
-   \end{figure}}
-\makeatother
 \title{Cross-Regime Performance Analysis of an Algorithmic Strategy for a Diversified Leverage Index Fund Portfolio}
-\author{\IEEEauthorblockN{Arithmax Research}
-\IEEEauthorblockA{\\
-Frankline Misango Oyolo\\
-Email: research@arithmax.com}}
+
+\arithmaxauthor{Frankline Misango Oyolo}{Arithmax Research, Quantitative Finance Division}{research@arithmax.com}
 \date{July 18, 2025}
 
 \begin{document}
 
 \maketitle
+
+% Add the official Arithmax Research logo prominently on the title page
+\begin{center}
+\vspace{-1em}
+\arithmaxtitlelogo[4cm]
+\vspace{0.5em}
+\end{center}
 
 \begin{abstract}
 This report presents a diversified leverage strategy designed to capture enhanced returns through leveraged ETFs while managing downside risk through strategic asset allocation. The framework combines \textbf{leveraged equity exposure}, \textbf{defensive bond positioning}, and \textbf{commodity diversification} to create a robust portfolio amid evolving tariff policies and economic uncertainty. Key innovations include: 1) Dynamic rebalancing with momentum preservation, 2) Multi-asset risk parity approach across leveraged instruments, 3) Volatility-adaptive allocation methodology, and 4) Tariff-resilient sector diversification. Backtests demonstrate superior risk-adjusted returns with controlled drawdowns during market stress periods. The mathematical framework addresses critical challenges in leveraged portfolio construction and systematic rebalancing.

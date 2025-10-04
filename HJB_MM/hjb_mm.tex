@@ -1,41 +1,19 @@
-\documentclass[twocolumn,11pt]{IEEEtran}  % Start with two columns by default
-\IEEEoverridecommandlockouts
-\usepackage{cite}
-\usepackage{amsmath,amssymb,amsfonts}
-\usepackage{algorithmic}
-\usepackage{graphicx}
-\usepackage{textcomp}
-\usepackage{xcolor}
-\usepackage{geometry}
-\usepackage{listings}
-\usepackage{color}
-\usepackage{hyperref}
-\usepackage{algorithm}
-\usepackage{natbib}
-\usepackage{algpseudocode}
-\usepackage{tikz}
-\usepackage{pgfplots}
-\usepackage{etoolbox}
-\AtBeginEnvironment{algorithm}{\vspace{-0.5em}}  % Tighten algorithm spacing
-\AfterEndEnvironment{algorithm}{\vspace{-0.5em}}
-\pgfplotsset{compat=1.18}
-
-\def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
-    T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
+\documentclass[onecolumn,ieee]{arithmaxresearch}
     
 \begin{document}
 
 \title{Low-Latency Crypto Market Making Through Jump Diffusion HJB Equations: GPU-Accelerated Simulation with Order Flow Toxicity Tracking}
 
-
-\author{\IEEEauthorblockN{\textsuperscript {1}Frankline Misango Oyolo, }
-\IEEEauthorblockA{\textit{ Frankline and Co. LP Research Capital} \\
-\textit{School of Computing and Data Science}\\
-The University of Hong Kong \\
-https://orcid.org/0009-0001-5261-9062}
-}
+\arithmaxauthor{Frankline Misango Oyolo}{School of Computing and Data Science, The University of Hong Kong}{frankline@arithmax.com}
 
 \maketitle
+
+% Add the official Arithmax Research logo prominently on the title page
+\begin{center}
+\vspace{-1em}
+\arithmaxtitlelogo[3.5cm]
+\vspace{0.5em}
+\end{center}
 
 \begin{abstract}
 We present a novel computational framework for high-frequency cryptocurrency market making that addresses the extreme volatility and unique microstructure challenges of these markets. By formulating the market maker's decision problem as a stochastic optimal control problem, we derive optimal quoting strategies through Hamilton-Jacobi-Bellman (HJB) partial differential equations. Our key innovation is the integration of jump-diffusion processes that explicitly capture the discontinuous price movements characteristic of cryptocurrency markets. We develop a massively parallel GPU implementation that solves high-dimensional HJB equations in microseconds, enabling real-time deployment in high-frequency environments. Our approach incorporates inventory risk management, market impact modeling, and order flow toxicity tracking, specifically calibrated to cryptocurrency microstructure. Empirical testing demonstrates a significant reduction in inventory risk and improvement in risk-adjusted returns compared to traditional strategies while maintaining sub-millisecond latency.
@@ -87,8 +65,6 @@ In the cryptocurrency domain, \cite{lehalle2019incorporating} analyzed the uniqu
 On the computational side, \cite{reisinger2018numerical} and \cite{sirignano2019deep} have explored the use of modern numerical methods for solving high-dimensional HJB equations, though primarily in the context of option pricing rather than market making.
 
 Our work synthesizes these threads, applying stochastic optimal control theory to the specific challenges of cryptocurrency market making while developing novel computational methods to make these theoretically optimal strategies practically deployable.
-
-\begin{onecolumn}
     
 \section{Mathematical Framework}
 
@@ -932,5 +908,5 @@ By continuing to advance both the theoretical foundations and practical implemen
 \bibitem{spooner2018market} Spooner, T., Fearnley, J., Savani, R., \& Koukorinis, A. (2018). Market making via reinforcement learning. \textit{AAMAS 2018}, 434-442.
 
 \end{thebibliography}
-\end{twocolumn}
+
 \end{document}
