@@ -13,6 +13,7 @@
 \newif\if@onecolumn\@onecolumnfalse
 \newif\if@ieee\@ieeefalse
 \newif\if@article\@articlefalse
+\newif\ifarithmaxtitlepageused\@arithmaxtitlepageusedfalse
 
 % Class options
 \DeclareOption{twocolumn}{\@twocolumntrue\@ieeetrue}
@@ -47,11 +48,7 @@
 \RequirePackage{textcomp}
 \RequirePackage{color}
 \RequirePackage{algorithm}
-\if@ieee
-    \RequirePackage{cite}
-\else
-    \RequirePackage[numbers,sort&compress]{natbib}
-\fi
+\RequirePackage[numbers,sort&compress]{natbib}
 \RequirePackage{algorithmicx}
 \RequirePackage{algpseudocode}
 \RequirePackage{tikz}
@@ -103,21 +100,30 @@
 
 % Author formatting commands
 \if@ieee
-    \newcommand{\arithmaxauthor}[3]{%
-        \IEEEauthorblockN{#1}%
-        \IEEEauthorblockA{\textit{Arithmax Research} \\
-        #2 \\
-        Email: #3}%
+    % Joint title page and author command
+    \newcommand{\arithmaxtitlepage}[3]{%
+        \arithmaxtitlepageusedtrue
+        \def\arithmax@name{#1}%
+        \def\arithmax@email{#2}%
+        \def\arithmax@date{#3}%
+        \begin{titlepage}
+            \begin{center}
+                \vspace*{1.5cm}
+                {\LARGE \textbf{\color{arithmaxblue}{\@title}}} \\
+                \vspace{0.5cm}
+                {\Large \textbf{#1}} \\
+                {\large #2} \\
+                {\large #3} \\
+                \vspace{0.5cm}
+                {\large \textit{Prepared for Arithmax Research}} \\
+                \vspace{0.5cm}
+                \arithmaxtitlelogo[3cm]
+            \end{center}
+        \end{titlepage}
     }
-\else
-    \newcommand{\arithmaxauthor}[3]{%
-        \author{%
-            \textbf{#1} \\
-            \textit{Arithmax Research} \\
-            #2 \\
-            \texttt{#3}%
-        }%
-    }
+
+    \let\originalmaketitle\maketitle
+    \renewcommand{\maketitle}{\ifarithmaxtitlepageused \else \originalmaketitle \fi}
 \fi
 
 % Abstract environment customization
@@ -150,7 +156,7 @@
 \def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
     T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
 
-% Hyperlink colors
+% Hyperlink colorsW
 \hypersetup{
     colorlinks=true,
     linkcolor=arithmaxblue,
