@@ -99,31 +99,41 @@
 \posttitle{\par\end{center}\vskip 0.5em}
 
 % Author formatting commands
-\if@ieee
-    % Joint title page and author command
-    \newcommand{\arithmaxtitlepage}[3]{%
-        \arithmaxtitlepageusedtrue
-        \def\arithmax@name{#1}%
-        \def\arithmax@email{#2}%
-        \def\arithmax@date{#3}%
-        \begin{titlepage}
-            \begin{center}
-                \vspace*{1.5cm}
-                {\LARGE \textbf{\color{arithmaxblue}{\@title}}} \\
-                \vspace{0.5cm}
-                {\Large \textbf{#1}} \\
-                {\large #2} \\
-                {\large #3} \\
-                \vspace{0.5cm}
-                {\large \textit{Prepared for Arithmax Research}} \\
-                \vspace{0.5cm}
-                \arithmaxtitlelogo[3cm]
-            \end{center}
-        \end{titlepage}
-    }
+% Unified title page command for all modes
+\newcommand{\arithmaxtitlepage}[3]{%
+    \arithmaxtitlepageusedtrue
+    \def\arithmax@name{#1}%
+    \def\arithmax@email{#2}%
+    \def\arithmax@date{#3}%
+    \begin{titlepage}
+        \begin{center}
+            \vspace*{1.5cm}
+            {\LARGE \textbf{\color{arithmaxblue}{\@title}}} \\
+            \vspace{0.5cm}
+            {\Large \textbf{#1}} \\
+            {\large #2} \\
+            {\large #3} \\
+            \vspace{0.5cm}
+            {\large \textit{Prepared for Arithmax Research}} \\
+            \vspace{0.5cm}
+            \arithmaxtitlelogo[3cm]
+        \end{center}
+    \end{titlepage}
+}
 
-    \let\originalmaketitle\maketitle
-    \renewcommand{\maketitle}{\ifarithmaxtitlepageused \else \originalmaketitle \fi}
+\let\originalmaketitle\maketitle
+\renewcommand{\maketitle}{\ifarithmaxtitlepageused \else \originalmaketitle \fi}
+
+\if@ieee
+    % Additional IEEE-specific commands if needed
+\else
+    \newcommand{\arithmaxauthor}[3]{%
+        \author{%
+            \textbf{#1} \\
+            #2 \\
+            \texttt{#3}%
+        }%
+    }
 \fi
 
 % Abstract environment customization
@@ -148,7 +158,7 @@
 \else
     \RequirePackage{titlesec}
     \titleformat{\section}{\large\bfseries\color{arithmaxblue}}{\thesection}{1em}{}
-    \titleformat{\subsection}{\normalsize\bfseries\color{arithmaxblue}}{\thesubsection}{1em}{}
+    \titleformat{\subsection}{\normalsize\bfseries}{\thesubsection}{1em}{}
     \titleformat{\subsubsection}{\normalsize\bfseries\color{arithmaxgray}}{\thesubsubsection}{1em}{}
 \fi
 

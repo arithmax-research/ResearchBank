@@ -2,12 +2,13 @@
 
 \begin{document}
 
-\title{Pairs Trading with Fractional Cointegration \\ and Adaptive Stochastic Control}
+\title{BTC/ETH Pairs Trading with Fractional Cointegration \\ and Adaptive Stochastic Control}
 
-\arithmaxauthor{Arithmax Research Team}{Quantitative Finance Division}{research@arithmax.com}
-\date{June 12, 2025}
+\arithmaxtitlepage{Frankline Misango Oyolo}{research@arithmax.com}{June 12, 2025}
 
 \maketitle
+
+\tableofcontents
 
 % Add the official Arithmax Research logo prominently on the title page
 \begin{center}
@@ -200,44 +201,39 @@ Q(s_t,a_t) &\leftarrow Q(s_t,a_t) + \alpha \left[ r_t + \gamma \max_a Q(s_{t+1},
 \end{align}
 
 \subsection{Real-Time Kalman Filter}
-\begin{lstlisting}[language=Python, basicstyle=\small\ttfamily]
-class FractionalKalman:
-    def __init__(self, H=0.7):
-        self.H = H  # Hurst exponent
-        self.w = np.array([1.0, 0.0])
-        self.C = np.eye(2) * 1e-3
-        
-    def update(self, p1, p2):
-        F = np.array([p2**self.H, (1-self.H)*p2**(self.H-1)])
-        y = p1 - F @ self.w
-        Q = F @ self.C @ F.T + 1e-4
-        K = self.C @ F.T / Q
-        self.w += K * y
-        self.C = (np.eye(2) - K @ F) @ self.C
-\end{lstlisting}
+
+\begin{algorithm}[h]
+\caption{Fractional Kalman Filter Update}
+\label{alg:kalman}
+\begin{algorithmic}[1]
+\Function{KalmanUpdate}{$p1, p2$}
+    \State $F \gets [p2^H, (1-H) \cdot p2^{H-1}]$
+    \State $y \gets p1 - F \cdot w$
+    \State $Q \gets F \cdot C \cdot F^T + \epsilon$
+    \State $K \gets C \cdot F^T / Q$
+    \State $w \gets w + K \cdot y$
+    \State $C \gets (I - K \cdot F) \cdot C$
+    \State \Return $w$
+\EndFunction
+\end{algorithmic}
+\end{algorithm}
 
 \subsection{RL Trading System}
-\begin{lstlisting}[language=Python, basicstyle=\small\ttfamily]
-class TradingAgent(tf.keras.Model):
-    def __init__(self, state_dim=5):
-        super().__init__()
-        self.dense1 = tf.keras.layers.Dense(64, activation='swish')
-        self.dense2 = tf.keras.layers.Dense(32, activation='swish')
-        self.policy = tf.keras.layers.Dense(3, activation='softmax')
-        
-    def call(self, states):
-        x = self.dense1(states)
-        x = self.dense2(x)
-        return self.policy(x)
-    
-    def learn(self, states, actions, rewards):
-        with tf.GradientTape() as tape:
-            probs = self(states)
-            log_probs = tf.math.log(tf.gather(probs, actions, axis=1))
-            loss = -tf.reduce_mean(log_probs * rewards)
-        grads = tape.gradient(loss, self.trainable_variables)
-        self.optimizer.apply_gradients(zip(grads, self.trainable_variables))
-\end{lstlisting}
+
+\begin{algorithm}[h]
+\caption{Reinforcement Learning Trading Agent}
+\label{alg:rl}
+\begin{algorithmic}[1]
+\Function{TrainAgent}{states, actions, rewards}
+    \State $\pi \gets \text{MLP}(states)$
+    \State $\log \pi_a \gets \log(\pi[\text{actions}])$
+    \State $\text{loss} \gets -\mean(\log \pi_a \cdot rewards)$
+    \State $\text{grads} \gets \nabla_{\theta} \text{loss}$
+    \State $\theta \gets \theta - \alpha \cdot \text{grads}$
+    \State \Return $\pi$
+\EndFunction
+\end{algorithmic}
+\end{algorithm}
 
 \section{Mathematical Results}
 
